@@ -86,29 +86,43 @@ def KgCal(Element):
 
     shift0 = 0
     shift2 = 2
+    for i in range(4):
+        print(i * 2)
+
     x = 0
-    Kg[0 + x][0 + x] = Element[2][0 + shift0][0 + shift0] + Element[3][0 + shift0][0 + shift0] + Element[4][0 + shift0][
-        0 + shift0]
-    Kg[0 + x][1 + x] = Element[2][0 + shift0][1 + shift0] + Element[3][0 + shift0][1 + shift0] + Element[4][0 + shift0][
-        1 + shift0]
-    Kg[1 + x][0 + x] = Element[2][1 + shift0][0 + shift0] + Element[3][1 + shift0][0 + shift0] + Element[4][1 + shift0][
-        0 + shift0]
-    Kg[1 + x][1 + x] = Element[2][1 + shift0][1 + shift0] + Element[3][1 + shift0][1 + shift0] + Element[4][1 + shift0][
-        1 + shift0]
+    Kg[0 + x][0 + x] = Element[2][0 + shift0][0 + shift0] \
+                       + Element[3][0 + shift0][0 + shift0] \
+                       + Element[4][0 + shift0][0 + shift0]
+    Kg[0 + x][1 + x] = Element[2][0 + shift0][1 + shift0] \
+                       + Element[3][0 + shift0][1 + shift0] \
+                       + Element[4][0 + shift0][1 + shift0]
+    Kg[1 + x][0 + x] = Element[2][1 + shift0][0 + shift0] \
+                       + Element[3][1 + shift0][0 + shift0] \
+                       + Element[4][1 + shift0][0 + shift0]
+    Kg[1 + x][1 + x] = Element[2][1 + shift0][1 + shift0] \
+                       + Element[3][1 + shift0][1 + shift0] \
+                       + Element[4][1 + shift0][1 + shift0]
+
     x = 2
-    Kg[0 + x][0 + x] = Element[0][0 + shift2][0 + shift2] + Element[1][0 + shift2][0 + shift2] + Element[2][0 + shift2][
-        0 + shift2]
-    Kg[0 + x][1 + x] = Element[0][0 + shift2][1 + shift2] + Element[1][0 + shift2][1 + shift2] + Element[2][0 + shift2][
-        1 + shift2]
-    Kg[1 + x][0 + x] = Element[0][1 + shift2][0 + shift2] + Element[1][1 + shift2][0 + shift2] + Element[2][1 + shift2][
-        0 + shift2]
-    Kg[1 + x][1 + x] = Element[0][1 + shift2][1 + shift2] + Element[1][1 + shift2][1 + shift2] + Element[2][1 + shift2][
-        1 + shift2]
+    Kg[0 + x][0 + x] = Element[0][0 + shift2][0 + shift2] \
+                       + Element[1][0 + shift2][0 + shift2] \
+                       + Element[2][0 + shift2][0 + shift2]
+    Kg[0 + x][1 + x] = Element[0][0 + shift2][1 + shift2] \
+                       + Element[1][0 + shift2][1 + shift2] \
+                       + Element[2][0 + shift2][1 + shift2]
+    Kg[1 + x][0 + x] = Element[0][1 + shift2][0 + shift2] \
+                       + Element[1][1 + shift2][0 + shift2] \
+                       + Element[2][1 + shift2][0 + shift2]
+    Kg[1 + x][1 + x] = Element[0][1 + shift2][1 + shift2] \
+                       + Element[1][1 + shift2][1 + shift2] \
+                       + Element[2][1 + shift2][1 + shift2]
+
     x = 4
     Kg[0 + x][0 + x] = Element[0][0 + shift0][0 + shift0] + Element[3][0 + shift2][0 + shift2]
     Kg[0 + x][1 + x] = Element[0][0 + shift0][1 + shift0] + Element[3][0 + shift2][1 + shift2]
     Kg[1 + x][0 + x] = Element[0][1 + shift0][0 + shift0] + Element[3][1 + shift2][0 + shift2]
     Kg[1 + x][1 + x] = Element[0][1 + shift0][1 + shift0] + Element[3][1 + shift2][1 + shift2]
+
     x = 6
     Kg[0 + x][0 + x] = Element[1][0 + shift0][0 + shift0] + Element[4][0 + shift2][0 + shift2]
     Kg[0 + x][1 + x] = Element[1][0 + shift0][1 + shift0] + Element[4][0 + shift2][1 + shift2]
@@ -132,26 +146,22 @@ def KgCal(Element):
 def UCal(kg, red, p):
     #####################################Kred##################################
     Kred = np.zeros((8 - len(red), 8 - len(red)))
+
     loop = [0, 1, 2, 3, 4, 5, 6, 7]
     for x in red:
         loop.remove(x)
-    xx = -1
-    for x in loop:
-        xx += 1;
-        yy = -1
-        for y in loop:
-            yy += 1;
-            Kred[yy][xx] = kg[y][x]
+
+    for i, x in enumerate(loop):
+        for j, y in enumerate(loop):
+            Kred[j][i] = kg[y][x]
     # print(Kred)
 
     #####################################Kred##################################
     for x in red:
         del p[x]
     P1 = np.zeros((5, 1))
-    i = 0
-    for x in P1:
+    for i, x in enumerate(P1):
         x[0] = p[i]
-        i += 1
     # print(P1)
 
     #####################################P1##################################
@@ -164,10 +174,9 @@ def UCal(kg, red, p):
     U1 = np.zeros((8, 1))
     # print(U)
     # print(loop)
-    UU = 0
-    for x in loop:
-        U1[x] = U[UU]
-        UU += 1
+
+    for i, x in enumerate(loop):
+        U1[x] = U[i]
     # print(U1)
 
     return U1
@@ -184,10 +193,10 @@ def WeAndSCal(ElemanP, u):
           [0, 1, 2, 3],
           [0, 1, 4, 5],
           [0, 1, 6, 7]]
-    y = 0
-    for x in aa:
-        Re = ElemanP[y][0]
-        Kr = ElemanP[y][1]
+
+    for i, x in enumerate(aa):
+        Re = ElemanP[i][0]
+        Kr = ElemanP[i][1]
         u1 = np.zeros((4, 1))
         # print(u)
         for i in range(4):
@@ -200,7 +209,7 @@ def WeAndSCal(ElemanP, u):
         # print(S)
         SS.append(S)
         WW.append(We)
-        y += 1
+
     result.append(WW)
     result.append(SS)
     return result
