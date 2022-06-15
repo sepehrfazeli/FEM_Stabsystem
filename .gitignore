@@ -1,2 +1,5 @@
 .idea/
 __pycache__/
+*.txt
+/database
+.DS_Store

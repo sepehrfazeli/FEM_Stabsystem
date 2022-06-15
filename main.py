@@ -1,11 +1,10 @@
-from Mahsan import info as Mahsan
+from Database import database
 
-from Hossein import info as Hossein
+from Methods import run, save
 
-from Hossein import Resistance as Resistance
+# databases Hossein, Mahsan
 
-from Methods import run
+result = run(database, 'Hossein')  # dict_keys(['ke', 'element', 'kg', 'u', 'WS', 'Lager'])
 
-result = run(Hossein, Resistance)    # dict_keys(['ke', 'element', 'kg', 'u', 'WS', 'Lager'])
-
-print(result['Lager'])
+# print(result['kg'])
+save(result)

@@ -2,6 +2,8 @@ import math
 
 import numpy as np
 
+from makedir import makedir
+
 
 def infoMaker(inp):
     info = np.zeros((5, 4))
@@ -201,11 +203,11 @@ def LagerCal(kg, u):
     return La
 
 
-def run(person, Resistance):
-
-    info = infoMaker(person[0])
-    red = RMaker(Resistance)
-    p = person[1]
+def run(database, person):
+    data = database[person]
+    info = infoMaker(data['info'])
+    red = RMaker(data['Resistance'])
+    p = data['p']
 
     element = elemanCr(info)
     kg = KgCal(element[0])
@@ -216,6 +218,7 @@ def run(person, Resistance):
     # print(Lager)
 
     result = {
+        'name': data['name'],
         'ke': element[0],
         'element': element[1],
         'kg': kg,
@@ -223,6 +226,8 @@ def run(person, Resistance):
         'WS': WS,
         'Lager': Lager
     }
+
+    # print(kg)
     return result
     # for i, x in enumerate(eleman[0]):
     #     if i == 1:
@@ -230,3 +235,46 @@ def run(person, Resistance):
 
     # for i, x in enumerate(eleman[1][1]):
     #     print(f'{i + 1}\n{x}')
+
+
+def save(result):
+    person = result['name']
+    makedir(person)
+
+    for key, value in result.items():
+        # 'ke', 'element', 'kg', 'u', 'WS', 'Lager'
+
+        if key == 'kg' or key == 'u' or key == 'Lager':
+            np.savetxt(f'./database/{person}/{key}.txt', value,
+                       fmt='%-e',
+                       header=f'{key}',
+                       delimiter='\t',
+                       newline='\n\n')
+        elif key == 'WS':
+            for j, y in enumerate(value):
+                for i, x in enumerate(y):
+                    if j == 0:
+                        name = 'We'
+                    else:
+                        name = 'S'
+                    np.savetxt(f'./database/{person}/{name}/{name}{i + 1}.txt', x,
+                               fmt='%-e',
+                               header=f'{key}',
+                               delimiter='\t',
+                               newline='\n\n')
+        elif key == 'element':
+            for j, y in enumerate(value):
+                for i, x in enumerate(y):
+
+                    if i == 0:
+                        name = 'Re'
+                    elif i == 1:
+                        name = 'Kr'
+                    else:
+                        name = 'Ke'
+
+                    np.savetxt(f'./database/{person}/ElementsParameters/Element{j + 1}/{name}.txt', x,
+                               fmt='%-e',
+                               header=f'{key}',
+                               delimiter='\t',
+                               newline='\n\n')
