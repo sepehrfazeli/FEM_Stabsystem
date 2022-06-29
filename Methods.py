@@ -76,12 +76,15 @@ def KgCal(Element):
     Kg[0 + x][0 + x] = Element[2][0 + shift0][0 + shift0] \
                        + Element[3][0 + shift0][0 + shift0] \
                        + Element[4][0 + shift0][0 + shift0]
+
     Kg[0 + x][1 + x] = Element[2][0 + shift0][1 + shift0] \
                        + Element[3][0 + shift0][1 + shift0] \
                        + Element[4][0 + shift0][1 + shift0]
+
     Kg[1 + x][0 + x] = Element[2][1 + shift0][0 + shift0] \
                        + Element[3][1 + shift0][0 + shift0] \
                        + Element[4][1 + shift0][0 + shift0]
+
     Kg[1 + x][1 + x] = Element[2][1 + shift0][1 + shift0] \
                        + Element[3][1 + shift0][1 + shift0] \
                        + Element[4][1 + shift0][1 + shift0]
@@ -90,12 +93,15 @@ def KgCal(Element):
     Kg[0 + x][0 + x] = Element[0][0 + shift2][0 + shift2] \
                        + Element[1][0 + shift2][0 + shift2] \
                        + Element[2][0 + shift2][0 + shift2]
+
     Kg[0 + x][1 + x] = Element[0][0 + shift2][1 + shift2] \
                        + Element[1][0 + shift2][1 + shift2] \
                        + Element[2][0 + shift2][1 + shift2]
+
     Kg[1 + x][0 + x] = Element[0][1 + shift2][0 + shift2] \
                        + Element[1][1 + shift2][0 + shift2] \
                        + Element[2][1 + shift2][0 + shift2]
+
     Kg[1 + x][1 + x] = Element[0][1 + shift2][1 + shift2] \
                        + Element[1][1 + shift2][1 + shift2] \
                        + Element[2][1 + shift2][1 + shift2]
@@ -204,6 +210,7 @@ def LagerCal(kg, u):
 
 
 def run(database, person):
+
     data = database[person]
     info = infoMaker(data['info'])
     red = RMaker(data['Resistance'])
@@ -245,7 +252,7 @@ def save(result):
         # 'ke', 'element', 'kg', 'u', 'WS', 'Lager'
 
         if key == 'kg' or key == 'u' or key == 'Lager':
-            np.savetxt(f'./database/{person}/{key}.txt', value,
+            np.savetxt(f'./results/{person}/{key}.txt', value,
                        fmt='%-e',
                        header=f'{key}',
                        delimiter='\t',
@@ -257,7 +264,7 @@ def save(result):
                         name = 'We'
                     else:
                         name = 'S'
-                    np.savetxt(f'./database/{person}/{name}/{name}{i + 1}.txt', x,
+                    np.savetxt(f'./results/{person}/{name}/{name}{i + 1}.txt', x,
                                fmt='%-e',
                                header=f'{key}',
                                delimiter='\t',
@@ -273,7 +280,7 @@ def save(result):
                     else:
                         name = 'Ke'
 
-                    np.savetxt(f'./database/{person}/ElementsParameters/Element{j + 1}/{name}.txt', x,
+                    np.savetxt(f'./results/{person}/ElementsParameters/Element{j + 1}/{name}.txt', x,
                                fmt='%-e',
                                header=f'{key}',
                                delimiter='\t',
